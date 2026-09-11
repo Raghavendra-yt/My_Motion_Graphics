@@ -125,12 +125,12 @@ const MOTION_PROJECTS = [
   },
   {
     id: "proj-14",
-    driveId: "1kR0pYfKq36V0-D4kL9k4u0X2M1N2P0cE",
+    driveId: "1q5g19ayN7k0wHSWM-oWN8e3V2OPLnDWD",
     title: "Kids Animation Template",
     category: "Brand Motion",
     description: "Vibrant, playful character motion toolkit with dynamic vector staging and bouncy easing curves.",
     tags: ["Motion Graphics", "DaVinci Fusion", "Template System"],
-    gradientClass: "art-gradient-3" 
+    gradientClass: "art-gradient-3"
   }
 ];
 
