@@ -151,6 +151,7 @@ const cardViewToggle = document.getElementById("cardViewToggle");
 const loadMoreContainer = document.getElementById("loadMoreContainer");
 const loadMoreBtn = document.getElementById("loadMoreBtn");
 const loadMoreText = document.getElementById("loadMoreText");
+const viewLessBtn = document.getElementById("viewLessBtn");
 const loadMoreProgress = document.getElementById("loadMoreProgress");
 
 // Modal Elements
@@ -364,32 +365,74 @@ function renderProjects(projects, animateFromIndex = 0) {
     portfolioGrid.appendChild(card);
   });
 
-  // Update Show more Button & Progress Counter
+  // Update Show more & View less Buttons & Progress Counter
   if (loadMoreContainer) {
-    if (visibleProjects.length < validProjects.length) {
+    const isMoreAvailable = visibleProjects.length < validProjects.length;
+    const isExpanded = visibleProjects.length > CARDS_PER_BATCH;
+
+    if (isMoreAvailable || isExpanded) {
       loadMoreContainer.classList.remove("hidden");
-      if (loadMoreText) {
-        loadMoreText.textContent = "Show more";
-      }
-      if (loadMoreProgress) {
-        loadMoreProgress.textContent = `Showing ${visibleProjects.length} of ${validProjects.length} projects`;
-      }
     } else {
       loadMoreContainer.classList.add("hidden");
+    }
+
+    if (loadMoreBtn) {
+      if (isMoreAvailable) {
+        loadMoreBtn.classList.remove("hidden");
+        loadMoreBtn.style.display = "";
+        if (loadMoreText) loadMoreText.textContent = "Show more";
+      } else {
+        loadMoreBtn.classList.add("hidden");
+        loadMoreBtn.style.display = "none";
+      }
+    }
+
+    if (viewLessBtn) {
+      if (isExpanded) {
+        viewLessBtn.classList.remove("hidden");
+        viewLessBtn.style.display = "";
+      } else {
+        viewLessBtn.classList.add("hidden");
+        viewLessBtn.style.display = "none";
+      }
+    }
+
+    if (loadMoreProgress) {
+      loadMoreProgress.textContent = `Showing ${visibleProjects.length} of ${validProjects.length} projects`;
     }
   }
 }
 
 /**
- * Setup Show More Progressive Loading Button
+ * Setup Show More & View Less Progressive Loading Buttons
  */
 function setupLoadMore() {
-  if (!loadMoreBtn) return;
-  loadMoreBtn.addEventListener("click", () => {
-    const prevCount = visibleCardCount;
-    visibleCardCount += CARDS_PER_BATCH;
-    renderProjects(currentFilteredProjects, prevCount);
-  });
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", () => {
+      const prevCount = visibleCardCount;
+      visibleCardCount += CARDS_PER_BATCH;
+      renderProjects(currentFilteredProjects, prevCount);
+    });
+  }
+
+  if (viewLessBtn) {
+    viewLessBtn.addEventListener("click", () => {
+      visibleCardCount = CARDS_PER_BATCH;
+      renderProjects(currentFilteredProjects, 0);
+
+      // Smooth scroll back to showcase section header
+      const portfolioSection = document.getElementById("portfolio");
+      if (portfolioSection) {
+        const headerOffset = 80;
+        const elementPosition = portfolioSection.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+    });
+  }
 }
 
 /**

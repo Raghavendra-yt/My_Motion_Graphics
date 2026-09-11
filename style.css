@@ -934,8 +934,17 @@ button {
   display: none;
 }
 
-.load-more-btn {
-  min-width: 180px;
+.pagination-btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.load-more-btn,
+.view-less-btn {
+  min-width: 160px;
   height: 44px;
   font-size: 0.92rem;
   font-weight: 500;
@@ -944,19 +953,30 @@ button {
   transition: all var(--transition-mid);
 }
 
-.load-more-btn:hover {
+.view-less-btn.hidden,
+.load-more-btn.hidden {
+  display: none;
+}
+
+.load-more-btn:hover,
+.view-less-btn:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
   color: var(--google-blue);
   border-color: var(--google-blue);
 }
 
-.load-more-btn svg {
+.load-more-btn svg,
+.view-less-btn svg {
   transition: transform var(--transition-fast);
 }
 
 .load-more-btn:hover svg {
   transform: translateY(2px);
+}
+
+.view-less-btn:hover svg {
+  transform: translateY(-2px);
 }
 
 .load-more-progress {
