@@ -1,7 +1,7 @@
 /**
  * FLUID UI MOTION GRAPHICS PORTFOLIO
  * Core JavaScript Application Controller
- * Handles 13 Google Drive motion graphics projects, category filtering,
+ * Handles 15 Google Drive motion graphics projects, category filtering,
  * fluid theater lightbox modal, keyboard navigation, and interactive dynamics.
  */
 
@@ -131,6 +131,15 @@ const MOTION_PROJECTS = [
     description: "Vibrant, playful character motion toolkit with dynamic vector staging and bouncy easing curves.",
     tags: ["Motion Graphics", "DaVinci Fusion", "Template System"],
     gradientClass: "art-gradient-3"
+  },
+  {
+    id: "proj-15",
+    driveId: "1EflqwTSN4HLvSuItGmlg4HrcrkK5lRxR",
+    title: "Liquid Glass Toggle",
+    category: "Visual FX",
+    description: "Fluid refractive glass toggle micro-interaction with realistic optical dispersion, smooth liquid physics, and tactile state transitions.",
+    tags: ["Glass Shader", "UI Micro-interaction", "DaVinci Resolve"],
+    gradientClass: "art-gradient-4"
   }
 ];
 
