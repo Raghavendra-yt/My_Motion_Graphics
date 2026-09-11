@@ -138,6 +138,8 @@ const MOTION_PROJECTS = [
 let currentFilteredProjects = [...MOTION_PROJECTS];
 let currentProjectIndex = 0;
 let activeCategory = "all";
+const CARDS_PER_BATCH = 6;
+let visibleCardCount = CARDS_PER_BATCH;
 
 // DOM Elements
 const portfolioGrid = document.getElementById("portfolioGrid");
@@ -146,6 +148,10 @@ const filterScroller = document.getElementById("filterScroller");
 const filterPills = document.querySelectorAll(".filter-pill");
 const pillIndicator = document.getElementById("pillIndicator");
 const cardViewToggle = document.getElementById("cardViewToggle");
+const loadMoreContainer = document.getElementById("loadMoreContainer");
+const loadMoreBtn = document.getElementById("loadMoreBtn");
+const loadMoreText = document.getElementById("loadMoreText");
+const loadMoreProgress = document.getElementById("loadMoreProgress");
 
 // Modal Elements
 const theaterModal = document.getElementById("theaterModal");
@@ -175,6 +181,7 @@ function initApp() {
   updateDynamicCounts();
   renderProjects(MOTION_PROJECTS);
   setupFilterPills();
+  setupLoadMore();
   setupModalEvents();
   setupViewToggle();
   setupFluidCursor();
@@ -230,23 +237,38 @@ function updateDynamicCounts() {
 }
 
 /**
- * Render Project Cards into the Fluid Grid
+ * Render Project Cards into the Fluid Grid (Progressive 6-Batch Loading)
  */
-function renderProjects(projects) {
-  portfolioGrid.innerHTML = "";
-
+function renderProjects(projects, animateFromIndex = 0) {
   // Filter out any undefined or invalid entries
   const validProjects = projects.filter(p => p && p.id);
 
   if (validProjects.length === 0) {
+    portfolioGrid.innerHTML = "";
     noResults.classList.remove("hidden");
+    if (loadMoreContainer) loadMoreContainer.classList.add("hidden");
     return;
   }
   noResults.classList.add("hidden");
 
-  validProjects.forEach((proj, idx) => {
+  // Limit rendering to visibleCardCount
+  const visibleProjects = validProjects.slice(0, visibleCardCount);
+
+  if (animateFromIndex === 0) {
+    portfolioGrid.innerHTML = "";
+  }
+
+  const itemsToRender = animateFromIndex > 0
+    ? validProjects.slice(animateFromIndex, visibleCardCount)
+    : visibleProjects;
+
+  itemsToRender.forEach((proj, i) => {
+    const idx = animateFromIndex > 0 ? animateFromIndex + i : i;
     const card = document.createElement("article");
     card.className = "project-card";
+    if (animateFromIndex > 0) {
+      card.classList.add("card-entry-animate");
+    }
     card.setAttribute("data-project-id", proj.id);
     card.setAttribute("tabindex", "0");
     card.setAttribute("role", "button");
@@ -341,6 +363,33 @@ function renderProjects(projects) {
 
     portfolioGrid.appendChild(card);
   });
+
+  // Update Show more Button & Progress Counter
+  if (loadMoreContainer) {
+    if (visibleProjects.length < validProjects.length) {
+      loadMoreContainer.classList.remove("hidden");
+      if (loadMoreText) {
+        loadMoreText.textContent = "Show more";
+      }
+      if (loadMoreProgress) {
+        loadMoreProgress.textContent = `Showing ${visibleProjects.length} of ${validProjects.length} projects`;
+      }
+    } else {
+      loadMoreContainer.classList.add("hidden");
+    }
+  }
+}
+
+/**
+ * Setup Show More Progressive Loading Button
+ */
+function setupLoadMore() {
+  if (!loadMoreBtn) return;
+  loadMoreBtn.addEventListener("click", () => {
+    const prevCount = visibleCardCount;
+    visibleCardCount += CARDS_PER_BATCH;
+    renderProjects(currentFilteredProjects, prevCount);
+  });
 }
 
 /**
@@ -380,6 +429,7 @@ function updatePillIndicator() {
 }
 
 function filterCategory(category) {
+  visibleCardCount = CARDS_PER_BATCH; // Reset to 6 for selected category
   if (category === "all") {
     currentFilteredProjects = [...MOTION_PROJECTS];
   } else {
@@ -389,6 +439,7 @@ function filterCategory(category) {
 }
 
 window.resetFilter = function() {
+  visibleCardCount = CARDS_PER_BATCH;
   const allPill = document.querySelector('.filter-pill[data-category="all"]');
   if (allPill) allPill.click();
 };

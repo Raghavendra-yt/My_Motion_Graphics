@@ -125,6 +125,19 @@
           <!-- Populated dynamically by app.js -->
         </div>
 
+        <!-- Show More Progressive Loading -->
+        <div class="load-more-container" id="loadMoreContainer">
+          <button id="loadMoreBtn" class="fluid-btn secondary-action load-more-btn" aria-label="Show more projects">
+            <span class="btn-content">
+              <span id="loadMoreText">Show more</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </button>
+          <div class="load-more-progress" id="loadMoreProgress">Showing 6 of 14 projects</div>
+        </div>
+
         <!-- No Results Fallback -->
         <div id="noResults" class="no-results hidden">
           <div class="empty-icon">
