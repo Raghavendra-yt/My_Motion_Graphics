@@ -1,6 +1,6 @@
 # Motion Graphics Portfolio — Fluid UI (Light Theme)
 
-A portfolio web application engineered with a **Fluid UI design system** and a luminous **Light Theme**, showcasing 15 curated motion graphics projects from Google Drive.
+A portfolio web application engineered with a **Fluid UI design system** and a luminous **Light Theme**, showcasing 16 curated motion graphics projects from Google Drive.
 
 ![Portfolio Preview](screenshot_overview.png) *(or open index.html directly in your browser)*
 
@@ -13,14 +13,14 @@ A portfolio web application engineered with a **Fluid UI design system** and a l
   - **Light Theme Visual Harmony**: Alabaster and crisp white surfaces, frosted glass cards (`backdrop-filter`), delicate iridescent gradients, and high-contrast slate typography.
   - **Organic Motion Dynamics**: Ambient floating liquid orbs, interactive fluid mouse aura, animated audio wave bars, and glowing active pill indicator.
 
-- **15 Motion Graphics Projects Showcased**:
-  - All 15 Google Drive video links from your collection are integrated with high-resolution thumbnail previews.
+- **16 Motion Graphics Projects Showcased**:
+  - All 16 Google Drive video links from your collection are integrated with high-resolution thumbnail previews.
   - **Fluid Theater Modal**: Instant distraction-free 16:9 lightbox player streaming directly from Google Drive embed (`https://drive.google.com/file/d/{id}/preview`).
   - **Keyboard Navigation**: Press <kbd>&larr;</kbd> and <kbd>&rarr;</kbd> to switch videos in theater mode, and <kbd>ESC</kbd> to exit.
   - **Direct Drive Access**: Quick action button on every card and in the theater header to open the original source file on Google Drive.
 
 - **Interactive Category Filtering**:
-  - Filter across: `All Works (15)`, `Brand Motion (6)`, and `Visual FX & UI (9)`.
+  - Filter across: `All Works (16)`, `Brand Motion (6)`, and `Visual FX & UI (10)`.
   - Animated magnetic pill indicator tracking active category.
 
 - **Display Modes**:
@@ -54,7 +54,7 @@ Then open `http://localhost:3000` in your browser.
 My_Motion_Graphics/
 ├── index.html       # Semantic HTML5 markup, SEO meta tags, accessible landmarks
 ├── style.css        # Vanilla CSS3 Fluid UI design system tokens & animations
-├── app.js           # Project data array (15 videos), filtering, and modal controls
+├── app.js           # Project data array (16 videos), filtering, and modal controls
 ├── package.json     # Project scripts & metadata
 └── README.md        # Documentation
 ```

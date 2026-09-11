@@ -1,7 +1,7 @@
 {
   "name": "my-motion-graphics-portfolio",
   "version": "1.0.0",
-  "description": "Fluid UI Light-Theme Motion Graphics Portfolio showcasing 15 featured video works",
+  "description": "Fluid UI Light-Theme Motion Graphics Portfolio showcasing 16 featured video works",
   "main": "index.html",
   "scripts": {
     "start": "node server.js",

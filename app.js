@@ -1,7 +1,7 @@
 /**
  * FLUID UI MOTION GRAPHICS PORTFOLIO
  * Core JavaScript Application Controller
- * Handles 15 Google Drive motion graphics projects, category filtering,
+ * Handles 16 Google Drive motion graphics projects, category filtering,
  * fluid theater lightbox modal, keyboard navigation, and interactive dynamics.
  */
 
@@ -140,6 +140,15 @@ const MOTION_PROJECTS = [
     description: "Fluid refractive glass toggle micro-interaction with realistic optical dispersion, smooth liquid physics, and tactile state transitions.",
     tags: ["Glass Shader", "UI Micro-interaction", "DaVinci Resolve"],
     gradientClass: "art-gradient-4"
+  },
+  {
+    id: "proj-16",
+    driveId: "1XSvp-XGwghHvB56LtXwNblNS_2PKg0da",
+    title: "DJ's avaliabe",
+    category: "Visual FX",
+    description: "Dynamic DJ availability visual effects animation with kinetic typography, audio-visual rhythm sync, and fluid transitions.",
+    tags: ["Visual FX", "Motion Graphics", "DaVinci Resolve"],
+    gradientClass: "art-gradient-1"
   }
 ];
 
