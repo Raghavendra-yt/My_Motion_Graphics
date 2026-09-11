@@ -113,6 +113,24 @@ const MOTION_PROJECTS = [
     description: "Trim path physics, tracking/easing balance, texture grain grading, and typographic clarity.",
     tags: ["DaVinci Resolve"],
     gradientClass: "art-gradient-4"
+  },
+  {
+    id: "proj-13",
+    driveId: "1Ed10Tmn4hIcisCYgXdCiyqKrRcCs4ujT",
+    title: "Liquid Glass Effect",
+    category: "Visual FX",
+    description: "Refractive fluid glass shader simulation, chromatic dispersion, and smooth liquid surface physics.",
+    tags: [ "Glass Shader", "Fluid Physics", "DaVinci Resolve"],
+    gradientClass: "art-gradient-5"
+  },
+  {
+    id: "proj-14",
+    driveId: "1kR0pYfKq36V0-D4kL9k4u0X2M1N2P0cE",
+    title: "Kids Animation Template",
+    category: "Brand Motion",
+    description: "Vibrant, playful character motion toolkit with dynamic vector staging and bouncy easing curves.",
+    tags: ["Motion Graphics", "DaVinci Fusion", "Template System"],
+    gradientClass: "art-gradient-3" 
   }
 ];
 
@@ -238,19 +256,24 @@ function renderProjects(projects) {
     const projectNumber = String(idx + 1).padStart(2, "0");
     const totalCount = String(validProjects.length).padStart(2, "0");
 
-    // Construct card inner HTML with high-res Drive thumbnail and smooth fallback
-    card.innerHTML = `
-      <div class="card-media-wrapper">
-        <div class="card-dynamic-poster">
-          <div class="poster-art ${proj.gradientClass || 'art-gradient-1'}"></div>
-          <img 
+    const isPendingDriveId = !proj.driveId || proj.driveId.startsWith("PASTE_");
+    const thumbnailMarkup = isPendingDriveId
+      ? `<div class="card-pending-badge" style="position:absolute;top:12px;left:12px;background:rgba(255,255,255,0.92);color:#5f6368;font-size:11px;font-weight:500;padding:4px 8px;border-radius:6px;z-index:4;box-shadow:0 1px 3px rgba(0,0,0,0.1);letter-spacing:0.3px;">Drive Link Pending</div>`
+      : `<img 
             class="card-thumbnail-img" 
             src="https://drive.google.com/thumbnail?id=${proj.driveId}&sz=w800" 
             alt="${proj.title} preview" 
             loading="lazy"
             onload="this.classList.add('loaded')"
             onerror="this.style.opacity='0'"
-          />
+          />`;
+
+    // Construct card inner HTML with high-res Drive thumbnail and smooth fallback
+    card.innerHTML = `
+      <div class="card-media-wrapper">
+        <div class="card-dynamic-poster">
+          <div class="poster-art ${proj.gradientClass || 'art-gradient-1'}"></div>
+          ${thumbnailMarkup}
           <div class="poster-mesh-lines"></div>
           <div class="poster-center-content">
             <div class="play-ring-button" aria-hidden="true">
@@ -416,28 +439,49 @@ function loadModalProject(proj) {
   const currentNum = String(currentProjectIndex + 1).padStart(2, "0");
   const totalNum = String(currentFilteredProjects.length).padStart(2, "0");
   modalCounter.textContent = `${currentNum} / ${totalNum}`;
-
-  const driveViewUrl = `https://drive.google.com/file/d/${proj.driveId}/view?usp=sharing`;
-  modalDriveLink.href = driveViewUrl;
-
   modalTags.innerHTML = proj.tags.map(t => `<span class="card-tag">${t}</span>`).join("");
 
-  // Construct standard Google Drive embed preview link
-  const embedUrl = `https://drive.google.com/file/d/${proj.driveId}/preview`;
-  modalIframe.src = embedUrl;
+  const isPendingDriveId = !proj.driveId || proj.driveId.startsWith("PASTE_");
 
-  // Clear previous spinner timeout and set safety fallback
-  if (window._modalSpinnerTimeout) {
-    clearTimeout(window._modalSpinnerTimeout);
+  if (isPendingDriveId) {
+    modalDriveLink.style.display = "none";
+    modalIframe.src = "about:blank";
+    modalIframe.style.display = "none";
+    modalSpinner.style.display = "flex";
+    modalSpinner.innerHTML = `
+      <div style="text-align:center;padding:24px;color:#5f6368;max-width:400px;margin:auto;">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#1a73e8" stroke-width="2" style="margin-bottom:12px;">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <h4 style="margin:0 0 8px;font-size:16px;color:#202124;font-weight:500;">Google Drive Link Pending</h4>
+        <p style="margin:0;font-size:13px;line-height:1.5;">Please provide the sharing link for this video to stream it in theater mode.</p>
+      </div>
+    `;
+  } else {
+    modalDriveLink.style.display = "";
+    modalDriveLink.href = `https://drive.google.com/file/d/${proj.driveId}/view?usp=sharing`;
+    modalIframe.style.display = "";
+    modalSpinner.innerHTML = `
+      <div class="fluid-spinner"></div>
+      <span>Connecting to Google Drive Stream...</span>
+    `;
+    modalSpinner.style.display = "flex";
+    modalIframe.src = `https://drive.google.com/file/d/${proj.driveId}/preview`;
+
+    if (window._modalSpinnerTimeout) {
+      clearTimeout(window._modalSpinnerTimeout);
+    }
+    window._modalSpinnerTimeout = setTimeout(() => {
+      modalSpinner.style.display = "none";
+    }, 2500);
+
+    modalIframe.onload = () => {
+      clearTimeout(window._modalSpinnerTimeout);
+      modalSpinner.style.display = "none";
+    };
   }
-  window._modalSpinnerTimeout = setTimeout(() => {
-    modalSpinner.style.display = "none";
-  }, 2500);
-
-  modalIframe.onload = () => {
-    clearTimeout(window._modalSpinnerTimeout);
-    modalSpinner.style.display = "none";
-  };
 }
 
 function navigateModal(direction) {

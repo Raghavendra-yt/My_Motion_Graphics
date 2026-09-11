@@ -14,7 +14,50 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon'
 };
 
+let clients = [];
+
+// Broadcast reload signal to any connected browser/viewer tabs
+function notifyReload() {
+  clients.forEach(res => {
+    try {
+      res.write('data: reload\n\n');
+    } catch (e) {}
+  });
+}
+
+// Watch project directory for changes with debounce
+let debounceTimeout = null;
+try {
+  fs.watch(__dirname, { recursive: false }, (eventType, filename) => {
+    if (filename && (filename.endsWith('.js') || filename.endsWith('.html') || filename.endsWith('.css'))) {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(() => {
+        console.log(`[Reload] File changed: ${filename}`);
+        notifyReload();
+      }, 150);
+    }
+  });
+} catch (err) {
+  console.warn('Watch error:', err);
+}
+
 const server = http.createServer((req, res) => {
+  // SSE endpoint for instant live-reload in the viewer
+  if (req.url === '/__livereload') {
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.write(': ping\n\n');
+    clients.push(res);
+    req.on('close', () => {
+      clients = clients.filter(c => c !== res);
+    });
+    return;
+  }
+
   let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url.split('?')[0]);
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] || 'application/octet-stream';
@@ -29,7 +72,13 @@ const server = http.createServer((req, res) => {
         res.end(`Server Error: ${err.code}`);
       }
     } else {
-      res.writeHead(200, { 'Content-Type': contentType });
+      // Send strict no-cache headers for dev server so changes always reflect immediately
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      });
       res.end(content);
     }
   });
