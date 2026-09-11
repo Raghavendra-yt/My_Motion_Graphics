@@ -1,0 +1,19 @@
+{
+  "name": "my-motion-graphics-portfolio",
+  "version": "1.0.0",
+  "description": "Fluid UI Light-Theme Motion Graphics Portfolio showcasing 13 featured video works",
+  "main": "index.html",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "motion-graphics",
+    "portfolio",
+    "fluid-ui",
+    "light-theme",
+    "video-showcase"
+  ],
+  "author": "",
+  "license": "MIT"
+}

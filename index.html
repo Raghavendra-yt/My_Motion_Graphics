@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motion Graphics Portfolio &mdash; Fluid UI & Direction</title>
+  <meta name="description" content="Selected motion design, 3D dynamics, kinetic typography, and visual systems portfolio. Crafted with Fluid UI in a luminous light theme.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231a73e8'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z'/></svg>">
+</head>
+<body class="light-theme google-minimal">
+  <!-- Minimal Ambient Background -->
+  <div class="fluid-background" aria-hidden="true">
+    <div class="minimal-grid-pattern"></div>
+  </div>
+
+  <!-- Minimal Navigation -->
+  <header class="fluid-nav-container">
+    <nav class="fluid-nav" aria-label="Main Navigation">
+      <a href="#hero" class="nav-brand" aria-label="Home">
+        <span class="brand-glyph google-dots" aria-hidden="true">
+          <span class="g-dot g-blue"></span>
+          <span class="g-dot g-red"></span>
+          <span class="g-dot g-yellow"></span>
+          <span class="g-dot g-green"></span>
+        </span>
+        <span class="brand-text">Motion<span class="brand-sub">Design</span></span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#portfolio" class="nav-link active">Works</a>
+        <a href="#skills" class="nav-link">Tooling</a>
+        <a href="#contact" class="nav-link">Connect</a>
+      </div>
+
+      <div class="nav-actions">
+        <button id="cardViewToggle" class="pill-btn secondary-pill" title="Switch to Cinema Mode (larger preview)">
+          <svg class="icon-toggle" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="2"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="2"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="2"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="2"></rect>
+          </svg>
+          <span class="btn-text">Cinema Mode</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-content">
+        <div class="hero-badge-wrapper">
+          <div class="fluid-badge">
+            <span class="badge-tools-icons" aria-hidden="true">
+              <img src="assets/blender-logo.jpg" alt="" class="badge-mini-icon">
+              <img src="assets/davinci-resolve-logo.jpg" alt="" class="badge-mini-icon">
+            </span>
+            <span class="badge-label">Crafted in Blender &amp; DaVinci Resolve &bull; 12 Projects</span>
+          </div>
+        </div>
+
+        <h1 class="hero-title">
+          Motion design crafted with <br>
+          <span class="hero-accent-text">clarity, rhythm &amp; precision.</span>
+        </h1>
+
+        <div class="hero-cta-group">
+          <a href="#portfolio" class="fluid-btn primary-action">
+            <span class="btn-content">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span>Explore Works (12)</span>
+            </span>
+          </a>
+
+          <a href="#skills" class="fluid-btn secondary-action">
+            <span class="btn-content">
+              <span>Tools Used</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio" class="portfolio-section">
+      <div class="container">
+        <div class="section-header-row">
+          <div class="section-title-wrap">
+            <h2 class="section-heading">Showcase</h2>
+          </div>
+          <p class="section-desc">
+            Browse through 12 featured motion graphics projects. Click any project to open the preview directly in place.
+          </p>
+        </div>
+
+        <!-- Fluid Filter Pills -->
+        <div class="filter-wrapper">
+          <div class="filter-scroller" id="filterScroller" role="tablist" aria-label="Project Categories">
+            <div class="pill-indicator" id="pillIndicator" aria-hidden="true"></div>
+            <button class="filter-pill active" data-category="all" role="tab" aria-selected="true">
+              All Works <span class="pill-count">12</span>
+            </button>
+            <button class="filter-pill" data-category="Brand Motion" role="tab" aria-selected="false">
+              Brand Motion <span class="pill-count">7</span>
+            </button>
+            <button class="filter-pill" data-category="Visual FX" role="tab" aria-selected="false">
+              Visual FX &amp; UI <span class="pill-count">5</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Fluid Gallery Grid -->
+        <div class="portfolio-grid compact-view" id="portfolioGrid" aria-live="polite">
+          <!-- Populated dynamically by app.js -->
+        </div>
+
+        <!-- No Results Fallback -->
+        <div id="noResults" class="no-results hidden">
+          <div class="empty-icon">
+            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+          </div>
+          <h3>No projects found</h3>
+          <p>Try selecting another category or view all 12 motion pieces.</p>
+          <button class="fluid-btn secondary-action" onclick="resetFilter()">View All Works</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SKILLS & TOOLING SECTION -->
+    <section id="skills" class="skills-section">
+      <div class="container">
+        <div class="skills-header">
+          <h2 class="section-heading">Used Tools</h2>
+        </div>
+
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-icon-wrap">
+              <img src="assets/blender-logo.jpg" alt="Blender Logo" class="tool-logo-img">
+            </div>
+            <div class="tool-info">
+              <h3>Blender</h3>
+              <p>Cycles &amp; Eevee, Geometry Nodes, 3D Modeling, Procedural Shading, Physics Simulation &amp; Lighting</p>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-icon-wrap">
+              <img src="assets/davinci-resolve-logo.jpg" alt="DaVinci Resolve Logo" class="tool-logo-img">
+            </div>
+            <div class="tool-info">
+              <h3>DaVinci Resolve</h3>
+              <p>Fusion Motion Graphics, Advanced Color Grading, Cinematic Editorial, Compositing &amp; Audio Pacing</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT & COLLABORATE SECTION -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="fluid-contact-card">
+          <h2 class="contact-title">Let’s Bring Your Vision Into Visual Motion.</h2>
+
+          <div class="contact-actions">
+            <button id="copyEmailBtn" class="fluid-btn primary-action" data-email="mraghavendra187@gmail.com">
+              <span class="btn-content">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span id="emailBtnText">Copy Inquiries Email</span>
+              </span>
+              <span class="liquid-shine"></span>
+            </button>
+
+            <a href="mailto:mraghavendra187@gmail.com?subject=Motion%20Graphics%20Project%20Inquiry" class="fluid-btn secondary-action">
+              <span class="btn-content">
+                <span>Send Direct Mail</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </span>
+            </a>
+
+            <a href="tel:+919391876305" class="fluid-btn secondary-action" title="Call +91 9391876305">
+              <span class="btn-content">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+                <span>+91 9391876305</span>
+              </span>
+            </a>
+          </div>
+
+          <div class="social-pills">
+            <a href="https://wa.me/919391876305" target="_blank" rel="noopener" class="social-link" title="Chat on WhatsApp">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm5.78 14.07c-.24.68-1.4 1.25-1.95 1.32-.49.07-1.13.1-3.28-.79-2.75-1.15-4.52-3.95-4.66-4.13-.14-.19-1.12-1.49-1.12-2.84s.7-2.01.95-2.28c.24-.27.53-.34.71-.34.18 0 .36 0 .52.01.17.01.39-.06.61.47.23.55.78 1.9.85 2.04.07.14.12.3.02.49-.09.19-.14.3-.28.46-.14.16-.3.35-.43.47-.14.14-.29.29-.12.57.16.28.73 1.2 1.57 1.94 1.07.95 1.98 1.25 2.26 1.39.28.14.45.12.61-.07.17-.19.73-.85.92-1.14.19-.29.39-.24.65-.14.26.1 1.64.77 1.92.91.28.14.47.21.54.33.07.11.07.66-.17 1.34z"/>
+              </svg>
+              <span>WhatsApp</span>
+            </a>
+            <a href="https://drive.google.com" target="_blank" rel="noopener" class="social-link" title="Google Drive Collection">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M7.71 3.5L1.15 15l3.43 6 6.56-11.5L7.71 3.5zm4.86 6l3.43 6h7.85l-3.43-6h-7.85zm1.14 8.5l-3.43 6h13.14l3.43-6H13.71z"/>
+              </svg>
+              <span>Drive Reel</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FLUID THEATER MODAL (Distraction-Free Video Experience) -->
+  <div id="theaterModal" class="theater-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="theater-backdrop" id="modalBackdrop"></div>
+    <div class="theater-container">
+      <div class="theater-card">
+        <!-- Theater Bar -->
+        <div class="theater-top-bar">
+          <div class="modal-project-badge" id="modalCategory">Brand Motion</div>
+          <div class="theater-counter" id="modalCounter">01 / 12</div>
+          <div class="theater-actions">
+            <a id="modalDriveLink" href="#" target="_blank" rel="noopener" class="modal-drive-btn" title="Open source in Google Drive">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+                <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+              </svg>
+              <span>Open on Drive</span>
+            </a>
+            <button id="closeModalBtn" class="close-modal-btn" aria-label="Close theater modal">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Video Frame Area -->
+        <div class="theater-video-wrapper">
+          <div class="video-loading-spinner" id="modalSpinner">
+            <div class="fluid-spinner"></div>
+            <span>Connecting to Google Drive Stream...</span>
+          </div>
+          <iframe id="modalIframe" src="" title="Motion Graphic Stream Player" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+        </div>
+
+        <!-- Theater Footer / Info & Navigation -->
+        <div class="theater-footer">
+          <div class="theater-info">
+            <h3 id="modalTitle" class="modal-title">Project Title</h3>
+            <p id="modalDescription" class="modal-description">Project technical description and art direction notes.</p>
+            <div class="modal-tags" id="modalTags">
+              <!-- Tags rendered via JS -->
+            </div>
+          </div>
+
+          <div class="theater-nav-controls">
+            <button id="prevProjectBtn" class="theater-nav-btn" aria-label="Previous video">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              <span>Prev</span>
+            </button>
+            <button id="nextProjectBtn" class="theater-nav-btn" aria-label="Next video">
+              <span>Next</span>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Keyboard Hint -->
+        <div class="theater-kbd-hint">
+          <span><kbd>&larr;</kbd> <kbd>&rarr;</kbd> Navigate</span>
+          <span><kbd>ESC</kbd> Close</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="fluid-toast" role="alert" aria-live="assertive">
+    <div class="toast-content">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M20 6L9 17l-5-5"></path>
+      </svg>
+      <span id="toastMessage">Inquiry email copied to clipboard!</span>
+    </div>
+  </div>
+
+  <!-- Fluid Footer -->
+  <footer class="fluid-footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <div class="brand-text">MOTION<span class="accent-dot">.</span>LAB</div>
+        <p class="footer-tagline">Visual storytelling shaped through kinetic energy and modern light aesthetics.</p>
+      </div>
+      <div class="footer-center">
+        <span class="fluid-indicator">Fluid UI Design System</span>
+        <span class="theme-indicator">&bull; Light Mode</span>
+      </div>
+      <div class="footer-right">
+        <a href="#hero" class="back-to-top" aria-label="Back to top">
+          <span>Top</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
